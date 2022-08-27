@@ -116,17 +116,17 @@ contract MyEpicGame is ERC721 {
         );
         string memory json = Base64.encode(
             abi.encodePacked(
-                '{"name": "',
+                "{'name': '",
                 charAttributes.name,
                 " -- NFT #: ",
                 Strings.toString(_tokenId),
-                '", "description": "I don\'t know what I\'m doing, but I will understand it by building", "image": "',
+                "', 'description': 'I don\'t know what I\'m doing, but I will understand it by building', 'image': '",
                 charAttributes.imageURI,
-                '", "attributes": [ { "trait_type": "Health Points", "value": ',
+                "', 'attributes': [ { 'trait_type': 'Health Points', 'value': ",
                 strHp,
-                ', "max_value":',
+                ", 'max_value':",
                 strMaxHp,
-                '}, { "trait_type": "Attack Damage", "value": ',
+                "}, { 'trait_type': 'Attack Damage', 'value': ",
                 strAttackDamage,
                 "} ]}"
             )

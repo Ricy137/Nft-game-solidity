@@ -2,14 +2,19 @@ const hre = require("hardhat");
 const main = async () => {
   const gameContractFactory = await hre.ethers.getContractFactory("MyEpicGame");
   const gameContract = await gameContractFactory.deploy(
-    ["Leo", "Aang", "Pikachu"], // Names
+    ["Tooth", "Aang", "Pikachu"], // Names
     [
-      "https://i.imgur.com/pKd5Sdk.png", // Images
-      "https://i.imgur.com/xVu4vFL.png",
-      "https://i.imgur.com/WMB6g9u.png",
+      "https://i.imgur.com/GDRW9Ax.jpeg", // Images
+      "https://i.imgur.com/https://i.imgur.com/xYUGJLA.jpeg",
+      "https://i.imgur.com/lLG3TQf.jpeg",
     ],
-    [101, 200, 300], // HP values
-    [100, 50, 25],
+    [
+      "No money, no working.CreditTo:Tsabo6",
+      "Welcom, my guest from another dystopia. CreditTo:AndreeWallin",
+      "Declare yourself. CreditTo:ianllanas"
+    ],
+    [301, 200, 300], // HP values
+    [400, 50, 75],
     "Spring",
     "https://i.imgur.com/adXiAp1.jpeg",
     1000,
@@ -17,13 +22,13 @@ const main = async () => {
   );
   await gameContract.deployed();
   console.log("Contract deployed to:", gameContract.address);
-  let txn;
-  txn = await gameContract.mintCharacterNFT(2);
-  await txn.wait();
-  console.log("Minted the #1!");
-  txn = await gameContract.attackBoss();
-  await txn.wait;
-  console.log('done');
+  // let txn;
+  // txn = await gameContract.mintCharacterNFT(2);
+  // await txn.wait();
+  // console.log("Minted the #1!");
+  // txn = await gameContract.attackBoss();
+  // await txn.wait;
+  // console.log("done");
 };
 
 const runMain = async () => {

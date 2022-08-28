@@ -31,6 +31,7 @@ export declare namespace MyEpicGame {
   export type CharacterAttributesStruct = {
     characterIndex: PromiseOrValue<BigNumberish>;
     name: PromiseOrValue<string>;
+    description: PromiseOrValue<string>;
     imageURI: PromiseOrValue<string>;
     hp: PromiseOrValue<BigNumberish>;
     maxHp: PromiseOrValue<BigNumberish>;
@@ -41,34 +42,14 @@ export declare namespace MyEpicGame {
     BigNumber,
     string,
     string,
+    string,
     BigNumber,
     BigNumber,
     BigNumber
   ] & {
     characterIndex: BigNumber;
     name: string;
-    imageURI: string;
-    hp: BigNumber;
-    maxHp: BigNumber;
-    attackDamage: BigNumber;
-  };
-
-  export type BigBossStruct = {
-    name: PromiseOrValue<string>;
-    imageURI: PromiseOrValue<string>;
-    hp: PromiseOrValue<BigNumberish>;
-    maxHp: PromiseOrValue<BigNumberish>;
-    attackDamage: PromiseOrValue<BigNumberish>;
-  };
-
-  export type BigBossStructOutput = [
-    string,
-    string,
-    BigNumber,
-    BigNumber,
-    BigNumber
-  ] & {
-    name: string;
+    description: string;
     imageURI: string;
     hp: BigNumber;
     maxHp: BigNumber;
@@ -83,9 +64,8 @@ export interface MyEpicGameInterface extends utils.Interface {
     "balanceOf(address)": FunctionFragment;
     "bigBoss()": FunctionFragment;
     "checkIfUserHasNFT()": FunctionFragment;
-    "getAllDefaultCharacters()": FunctionFragment;
+    "defaultCharacters(uint256)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
-    "getBigBoss()": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "mintCharacterNFT(uint256)": FunctionFragment;
     "name()": FunctionFragment;
@@ -108,9 +88,8 @@ export interface MyEpicGameInterface extends utils.Interface {
       | "balanceOf"
       | "bigBoss"
       | "checkIfUserHasNFT"
-      | "getAllDefaultCharacters"
+      | "defaultCharacters"
       | "getApproved"
-      | "getBigBoss"
       | "isApprovedForAll"
       | "mintCharacterNFT"
       | "name"
@@ -144,16 +123,12 @@ export interface MyEpicGameInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getAllDefaultCharacters",
-    values?: undefined
+    functionFragment: "defaultCharacters",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "getApproved",
     values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getBigBoss",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
@@ -224,14 +199,13 @@ export interface MyEpicGameInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getAllDefaultCharacters",
+    functionFragment: "defaultCharacters",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getApproved",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "getBigBoss", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "isApprovedForAll",
     data: BytesLike
@@ -404,18 +378,25 @@ export interface MyEpicGame extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[MyEpicGame.CharacterAttributesStructOutput]>;
 
-    getAllDefaultCharacters(
+    defaultCharacters(
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[MyEpicGame.CharacterAttributesStructOutput[]]>;
+    ): Promise<
+      [BigNumber, string, string, string, BigNumber, BigNumber, BigNumber] & {
+        characterIndex: BigNumber;
+        name: string;
+        description: string;
+        imageURI: string;
+        hp: BigNumber;
+        maxHp: BigNumber;
+        attackDamage: BigNumber;
+      }
+    >;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[string]>;
-
-    getBigBoss(
-      overrides?: CallOverrides
-    ): Promise<[MyEpicGame.BigBossStructOutput]>;
 
     isApprovedForAll(
       owner: PromiseOrValue<string>,
@@ -434,9 +415,10 @@ export interface MyEpicGame extends BaseContract {
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, string, string, BigNumber, BigNumber, BigNumber] & {
+      [BigNumber, string, string, string, BigNumber, BigNumber, BigNumber] & {
         characterIndex: BigNumber;
         name: string;
+        description: string;
         imageURI: string;
         hp: BigNumber;
         maxHp: BigNumber;
@@ -526,18 +508,25 @@ export interface MyEpicGame extends BaseContract {
     overrides?: CallOverrides
   ): Promise<MyEpicGame.CharacterAttributesStructOutput>;
 
-  getAllDefaultCharacters(
+  defaultCharacters(
+    arg0: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<MyEpicGame.CharacterAttributesStructOutput[]>;
+  ): Promise<
+    [BigNumber, string, string, string, BigNumber, BigNumber, BigNumber] & {
+      characterIndex: BigNumber;
+      name: string;
+      description: string;
+      imageURI: string;
+      hp: BigNumber;
+      maxHp: BigNumber;
+      attackDamage: BigNumber;
+    }
+  >;
 
   getApproved(
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<string>;
-
-  getBigBoss(
-    overrides?: CallOverrides
-  ): Promise<MyEpicGame.BigBossStructOutput>;
 
   isApprovedForAll(
     owner: PromiseOrValue<string>,
@@ -556,9 +545,10 @@ export interface MyEpicGame extends BaseContract {
     arg0: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, string, string, BigNumber, BigNumber, BigNumber] & {
+    [BigNumber, string, string, string, BigNumber, BigNumber, BigNumber] & {
       characterIndex: BigNumber;
       name: string;
+      description: string;
       imageURI: string;
       hp: BigNumber;
       maxHp: BigNumber;
@@ -646,18 +636,25 @@ export interface MyEpicGame extends BaseContract {
       overrides?: CallOverrides
     ): Promise<MyEpicGame.CharacterAttributesStructOutput>;
 
-    getAllDefaultCharacters(
+    defaultCharacters(
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<MyEpicGame.CharacterAttributesStructOutput[]>;
+    ): Promise<
+      [BigNumber, string, string, string, BigNumber, BigNumber, BigNumber] & {
+        characterIndex: BigNumber;
+        name: string;
+        description: string;
+        imageURI: string;
+        hp: BigNumber;
+        maxHp: BigNumber;
+        attackDamage: BigNumber;
+      }
+    >;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
-
-    getBigBoss(
-      overrides?: CallOverrides
-    ): Promise<MyEpicGame.BigBossStructOutput>;
 
     isApprovedForAll(
       owner: PromiseOrValue<string>,
@@ -676,9 +673,10 @@ export interface MyEpicGame extends BaseContract {
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, string, string, BigNumber, BigNumber, BigNumber] & {
+      [BigNumber, string, string, string, BigNumber, BigNumber, BigNumber] & {
         characterIndex: BigNumber;
         name: string;
+        description: string;
         imageURI: string;
         hp: BigNumber;
         maxHp: BigNumber;
@@ -814,14 +812,15 @@ export interface MyEpicGame extends BaseContract {
 
     checkIfUserHasNFT(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getAllDefaultCharacters(overrides?: CallOverrides): Promise<BigNumber>;
+    defaultCharacters(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    getBigBoss(overrides?: CallOverrides): Promise<BigNumber>;
 
     isApprovedForAll(
       owner: PromiseOrValue<string>,
@@ -912,7 +911,8 @@ export interface MyEpicGame extends BaseContract {
 
     checkIfUserHasNFT(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getAllDefaultCharacters(
+    defaultCharacters(
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -920,8 +920,6 @@ export interface MyEpicGame extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
-
-    getBigBoss(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isApprovedForAll(
       owner: PromiseOrValue<string>,

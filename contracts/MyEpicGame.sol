@@ -12,6 +12,7 @@ contract MyEpicGame is ERC721 {
     struct CharacterAttributes {
         uint256 characterIndex;
         string name;
+        string description;
         string imageURI;
         uint256 hp;
         uint256 maxHp;
@@ -26,7 +27,7 @@ contract MyEpicGame is ERC721 {
     }
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
-    CharacterAttributes[] defaultCharacters;
+    CharacterAttributes[] public defaultCharacters;
     BigBoss public bigBoss;
     mapping(uint256 => CharacterAttributes) public nftHolderAttributes;
     mapping(address => uint256) public nftHolders;
@@ -44,18 +45,20 @@ contract MyEpicGame is ERC721 {
     constructor(
         string[] memory characterNames,
         string[] memory characterImageURIs,
+        string[] memory characterDescription,
         uint256[] memory characterHp,
         uint256[] memory characterAttackDmg,
         string memory bossName,
         string memory bossImageURI,
         uint256 bossHp,
         uint256 bossAttackDamage
-    ) ERC721("Rich", "RICH") {
+    ) ERC721("Ricy", "RICY") {
         for (uint256 i = 0; i < characterNames.length; i += 1) {
             defaultCharacters.push(
                 CharacterAttributes({
                     characterIndex: i,
                     name: characterNames[i],
+                    description: characterDescription[i],
                     imageURI: characterImageURIs[i],
                     hp: characterHp[i],
                     maxHp: characterHp[i],
@@ -85,6 +88,7 @@ contract MyEpicGame is ERC721 {
         nftHolderAttributes[newItemId] = CharacterAttributes({
             characterIndex: _characterIndex,
             name: defaultCharacters[_characterIndex].name,
+            description: defaultCharacters[_characterIndex].description,
             imageURI: defaultCharacters[_characterIndex].imageURI,
             hp: defaultCharacters[_characterIndex].hp,
             maxHp: defaultCharacters[_characterIndex].maxHp,
@@ -120,7 +124,9 @@ contract MyEpicGame is ERC721 {
                 charAttributes.name,
                 " -- NFT #: ",
                 Strings.toString(_tokenId),
-                "', 'description': 'I don\'t know what I\'m doing, but I will understand it by building', 'image': '",
+                "', 'description': '",
+                charAttributes.description,
+                "', 'image': '",
                 charAttributes.imageURI,
                 "', 'attributes': [ { 'trait_type': 'Health Points', 'value': ",
                 strHp,
@@ -171,17 +177,5 @@ contract MyEpicGame is ERC721 {
             CharacterAttributes memory emptyStruct;
             return emptyStruct;
         }
-    }
-
-    function getAllDefaultCharacters()
-        public
-        view
-        returns (CharacterAttributes[] memory)
-    {
-        return defaultCharacters;
-    }
-
-    function getBigBoss() public view returns (BigBoss memory) {
-        return bigBoss;
     }
 }

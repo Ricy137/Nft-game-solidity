@@ -11,7 +11,7 @@ const main = async () => {
     [
       "No money, no working.CreditTo:Tsabo6",
       "Welcom, my guest from another dystopia. CreditTo:AndreeWallin",
-      "Declare yourself. CreditTo:ianllanas"
+      "Declare yourself. CreditTo:ianllanas",
     ],
     [301, 200, 300], // HP values
     [400, 50, 75],
@@ -23,6 +23,8 @@ const main = async () => {
   await gameContract.deployed();
   console.log("Contract deployed to:", gameContract.address);
   // let txn;
+  // txn = await gameContract.defaultCharacters(1);
+  // console.log(txn);
   // txn = await gameContract.mintCharacterNFT(2);
   // await txn.wait();
   // console.log("Minted the #1!");

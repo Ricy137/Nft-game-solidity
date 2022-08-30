@@ -1,5 +1,4 @@
 import * as dotenv from "dotenv";
-
 import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
@@ -28,6 +27,12 @@ const config: HardhatUserConfig = {
     rinkeby: {
       chainId: 4,
       url: process.env.RINKEBY_URL || "",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    goerli: {
+      chainId: 5,
+      url: process.env.GOERLI_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },

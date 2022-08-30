@@ -65,6 +65,7 @@ export interface MyEpicGameInterface extends utils.Interface {
     "bigBoss()": FunctionFragment;
     "checkIfUserHasNFT()": FunctionFragment;
     "defaultCharacters(uint256)": FunctionFragment;
+    "getAllDefaultCharacters()": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "mintCharacterNFT(uint256)": FunctionFragment;
@@ -89,6 +90,7 @@ export interface MyEpicGameInterface extends utils.Interface {
       | "bigBoss"
       | "checkIfUserHasNFT"
       | "defaultCharacters"
+      | "getAllDefaultCharacters"
       | "getApproved"
       | "isApprovedForAll"
       | "mintCharacterNFT"
@@ -125,6 +127,10 @@ export interface MyEpicGameInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "defaultCharacters",
     values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getAllDefaultCharacters",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getApproved",
@@ -200,6 +206,10 @@ export interface MyEpicGameInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "defaultCharacters",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getAllDefaultCharacters",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -393,6 +403,10 @@ export interface MyEpicGame extends BaseContract {
       }
     >;
 
+    getAllDefaultCharacters(
+      overrides?: CallOverrides
+    ): Promise<[MyEpicGame.CharacterAttributesStructOutput[]]>;
+
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -523,6 +537,10 @@ export interface MyEpicGame extends BaseContract {
     }
   >;
 
+  getAllDefaultCharacters(
+    overrides?: CallOverrides
+  ): Promise<MyEpicGame.CharacterAttributesStructOutput[]>;
+
   getApproved(
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
@@ -650,6 +668,10 @@ export interface MyEpicGame extends BaseContract {
         attackDamage: BigNumber;
       }
     >;
+
+    getAllDefaultCharacters(
+      overrides?: CallOverrides
+    ): Promise<MyEpicGame.CharacterAttributesStructOutput[]>;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -817,6 +839,8 @@ export interface MyEpicGame extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getAllDefaultCharacters(overrides?: CallOverrides): Promise<BigNumber>;
+
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -913,6 +937,10 @@ export interface MyEpicGame extends BaseContract {
 
     defaultCharacters(
       arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getAllDefaultCharacters(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
